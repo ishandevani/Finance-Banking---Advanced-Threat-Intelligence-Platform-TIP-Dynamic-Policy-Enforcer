@@ -10,3 +10,12 @@ Explain:
 - Elasticsearch integration
 - Dynamic firewall blocking
 - Kibana dashboards
+
+## Technologis Used
+
+- Python
+- MongoDB
+- Elasticsearch
+- Kibana
+- Logstash
+- Linux iptables
