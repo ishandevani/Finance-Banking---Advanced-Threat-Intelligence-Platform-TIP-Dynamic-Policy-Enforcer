@@ -37,3 +37,10 @@ When we use this python file it gives me Ips and Domain in Json format. EX:
   ]
 }
 ```
+
+I install MongoDB server and MongoDB compass.
+MongoDB Compass is GUI for MongoDB, designed to help users interact with databases visually without writing command-line queries.
+![MongoDB](screenshots/MongoDB1.png)
+
+We have collected all data from osint_threat.py (JSON format) and insert into MongoDB Database.
+![MongoDB](screenshots/MongoDB2.png)
