@@ -25,7 +25,7 @@ Explain:
 
 First, I created Linux Environment. We have created python file which was collect malicious Ips and Domain in the OSINT threat feeds (AlienVault OTX, VirusTotal, AbuseIPDB).   
 When we use this python file it gives me Ips and Domain in Json format. EX:
-'''bash
+'
 {
     "generated_at": "2026-05-08T05:25:45.374317",
     "ips": [
@@ -36,4 +36,4 @@ When we use this python file it gives me Ips and Domain in Json format. EX:
         }
     ]
 }
-'''
+'
