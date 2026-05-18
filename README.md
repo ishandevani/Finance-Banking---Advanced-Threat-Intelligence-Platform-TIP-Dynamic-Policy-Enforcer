@@ -44,3 +44,21 @@ MongoDB Compass is GUI for MongoDB, designed to help users interact with databas
 
 We have collected all data from osint_threat.py (JSON format) and insert into MongoDB Database.
 ![MongoDB](screenshots/MongoDB2.png)
+
+## week 2: Normalization and SIEM Integration
+
+I have created a dedicated folder named SIEM Integration in this repository. This folder contains detailed step-by-step documentation for setting up and configuring the SIEM environment, including installation, integration, and usage instructions. The guide is designed to help users easily understand and deploy the complete SIEM setup for this project.
+
+### Risk Score Design (Planning)
+
+This week we defined how risk score will be calculated.
+
+Risk score is on a scale of 1–10 based on three factors:
+
+| Factor | Logic | Max Points |
+|---|---|---|
+| Source count | How many feeds reported this IP | 3 |
+| Threat type | Ransomware=4, Botnet/Malware=3, Phishing=2, Scanner=1 | 4 |
+| Recency | Last seen ≤7 days=3, ≤30 days=2, older=1 | 3 |
+
+Risk score implementation will be done in Week 3 inside the enforcement daemon.
