@@ -41,7 +41,7 @@ select your oprating system.
 install MongoDB Server
 
 ```bash
-sudo dbkg -i mongodb-org-server_8.3.1_amd64.deb
+sudo dpkg -i mongodb-org-server_8.3.1_amd64.deb
 ```
 
 start and check service
@@ -57,3 +57,17 @@ Install Mongodb Compass
 go to tool and click the Mongodb Compass (GUI)
 
 ![MongoDB](screenshots/Mongo4.png)
+
+install MongoDB Compass
+
+```bash
+sudo dpkg -i mongodb-compass_1.49.6_amd64.deb
+```
+
+Once MongoDB Compass is installed, open it and connect it to the MongoDB server. By default, it connects to **localhost:27017**.
+
+![MongoDB](screenshots/MongoDB1.png)
+
+Create a database named osint_threat and set the collection name as osint_threat.
+
+![MongoDB](screenshots/MongoDB2.png)
