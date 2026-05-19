@@ -34,7 +34,7 @@
 
 Visit https://www.mongodb.com/ and go to Products > Community Edition, then click the Download Free button and select your operating system.
 
-![Mongo3](./screenshots/Mongo3.png)
+![Mongo3](/screenshots/Mongo3.png)
 
 Install MongoDB Server.
 
@@ -54,7 +54,7 @@ Install Mongodb Compass
 
 go to tool and click the Mongodb Compass (GUI)
 
-![Mongo4](screenshots/Mongo4.png)
+![Mongo4](/screenshots/Mongo4.png)
 
 install MongoDB Compass
 
@@ -64,10 +64,10 @@ sudo dpkg -i mongodb-compass_1.49.6_amd64.deb
 
 Once MongoDB Compass is installed, open it and connect it to the MongoDB server. By default, it connects to **localhost:27017**.
 
-![MongoDB1](screenshots/MongoDB1.png)
+![MongoDB1](/screenshots/MongoDB1.png)
 
 Create a database named osint_threat and set the collection name as osint_threat.
 
-![MongoDB2.png](screenshots/MongoDB2.png)
+![MongoDB2.png](/screenshots/MongoDB2.png)
 
 we uplode json file into MongoDB.
