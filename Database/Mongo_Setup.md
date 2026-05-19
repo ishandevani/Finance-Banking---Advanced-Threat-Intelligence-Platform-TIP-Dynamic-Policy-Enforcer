@@ -30,15 +30,13 @@
 - Verify deduplication is working
 - Filter high risk indicators manually before automation is built
 
-## install MongoDB Server
+## Install MongoDB Server
 
-visit https://www.mongodb.com/ 
-Go to Products > community-edition and click **Download free** button.
-select your oprating system.
+Visit https://www.mongodb.com/ and go to Products > Community Edition, then click the Download Free button and select your operating system.
 
-![MongoDB](screenshots/Mongo3.png)
+![MongoDB](./screenshots/Mongo3.png)
 
-install MongoDB Server
+Install MongoDB Server.
 
 ```bash
 sudo dpkg -i mongodb-org-server_8.3.1_amd64.deb
@@ -71,3 +69,5 @@ Once MongoDB Compass is installed, open it and connect it to the MongoDB server.
 Create a database named osint_threat and set the collection name as osint_threat.
 
 ![MongoDB](screenshots/MongoDB2.png)
+
+we uplode json file into MongoDB.
