@@ -68,6 +68,6 @@ Once MongoDB Compass is installed, open it and connect it to the MongoDB server.
 
 Create a database named osint_threat and set the collection name as osint_threat.
 
-![MongoDB2](screenshots/MongoDB2.png)
+![MongoDB2.png](screenshots/MongoDB2.png)
 
 we uplode json file into MongoDB.
