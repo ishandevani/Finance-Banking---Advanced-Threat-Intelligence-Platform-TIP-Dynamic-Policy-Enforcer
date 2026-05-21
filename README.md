@@ -59,3 +59,7 @@ Risk score is on a scale of 1–10 based on three factors:
 | Recency | Last seen ≤7 days=3, ≤30 days=2, older=1 | 3 |
 
 Risk score implementation will be done in Week 3 inside the enforcement daemon.
+
+## Tailscale
+
+Tailscale is a lightweight networking tool that creates a secure private network between your machines over the internet. It uses WireGuard encryption under the hood, meaning all traffic between machines is fully encrypted without complex firewall rules or port forwarding. In this project, MongoDB runs on a Windows machine and the ELK Stack runs on a separate Ubuntu machine on a different network. Without Tailscale, these two machines cannot talk to each other directly. Tailscale solves this by giving each machine a private IP address and routing traffic securely between them, making it appear as if both machines are on the same local network. This is critical for piping MongoDB threat data into Elasticsearch reliably and securely without exposing database ports to the public internet.
