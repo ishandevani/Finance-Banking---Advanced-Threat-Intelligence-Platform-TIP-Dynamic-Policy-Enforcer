@@ -68,3 +68,4 @@ Tailscale is a lightweight networking tool that creates a secure private network
 ## Week 3: Dynamic Policy Enforcement Engine
 
 we developed the Dynamic Security Policy Enforcer module. A Python script was created to assign risk scores to collected threat indicators based on their source and severity. The system continuously monitors high-risk indicators stored in the MongoDB database and automatically blocks malicious IP addresses using Linux iptables firewall rules. This automation helps proactively protect organizational systems by dynamically updating security policies and preventing connections from malicious infrastructure in real time.
+
