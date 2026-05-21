@@ -60,6 +60,11 @@ Risk score is on a scale of 1–10 based on three factors:
 
 Risk score implementation will be done in Week 3 inside the enforcement daemon.
 
-## Tailscale
+### Tailscale
 
 Tailscale is a lightweight networking tool that creates a secure private network between your machines over the internet. It uses WireGuard encryption under the hood, meaning all traffic between machines is fully encrypted without complex firewall rules or port forwarding. In this project, MongoDB runs on a Windows machine and the ELK Stack runs on a separate Ubuntu machine on a different network. Without Tailscale, these two machines cannot talk to each other directly. Tailscale solves this by giving each machine a private IP address and routing traffic securely between them, making it appear as if both machines are on the same local network. This is critical for piping MongoDB threat data into Elasticsearch reliably and securely without exposing database ports to the public internet.
+
+
+## Week 3: Dynamic Policy Enforcement Engine
+
+we developed the Dynamic Security Policy Enforcer module. A Python script was created to assign risk scores to collected threat indicators based on their source and severity. The system continuously monitors high-risk indicators stored in the MongoDB database and automatically blocks malicious IP addresses using Linux iptables firewall rules. This automation helps proactively protect organizational systems by dynamically updating security policies and preventing connections from malicious infrastructure in real time.
