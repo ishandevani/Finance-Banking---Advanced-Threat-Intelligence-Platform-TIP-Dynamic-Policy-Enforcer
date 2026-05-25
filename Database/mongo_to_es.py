@@ -7,7 +7,7 @@ MONGO_DB = "Threat"
 MONGO_COLLECTION = "osint_threat"
 ES_HOST = "http://localhost:9200"
 ES_USER = "elastic"
-ES_PASS = "Enter Your Password" #Enter your Elastcsearch password
+ES_PASS = "Enter Your Password" #Enter your Elastc Password
 ES_INDEX = "threat-osint"
 
 def parse_date(value):
