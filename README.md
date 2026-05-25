@@ -46,6 +46,11 @@ We have collected all data from osint_threat.py (JSON format) and insert into Mo
 
 I have created a dedicated folder named SIEM Integration in this repository. This folder contains detailed step-by-step documentation for setting up and configuring the SIEM environment, including installation, integration, and usage instructions. The guide is designed to help users easily understand and deploy the complete SIEM setup for this project.
 
+## Database
+
+- MongoDB setup and configuration
+- `mongo_to_es.py` — pipes threat data from MongoDB into Elasticsearch for a searchable, visual threat landscape via Kibana
+
 ### Risk Score Design (Planning)
 
 This week we defined how risk score will be calculated.
