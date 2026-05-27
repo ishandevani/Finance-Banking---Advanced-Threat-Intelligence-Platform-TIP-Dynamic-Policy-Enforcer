@@ -84,3 +84,32 @@ The `virustotal_enrich.py` script in the `processing/` folder automates the enri
 * **Batch Processing:** Handles large datasets efficiently in batches.
 * **Fault Tolerance:** Automatically saves progress to prevent data loss during interruptions.
 * **Structured Output:** Generates a fully enriched, production-ready JSON threat feed.
+
+This script uses the VirusTotal API to enrich threat intelligence indicators collected from sources such as AlienVault OTX. It converts basic IOC data containing only source, IP/domain, and timestamp into an enriched threat intelligence format by adding malicious score, suspicious score, country, ASN, reputation, calculated risk score, and severity level.
+
+Example Transformation:
+
+Input:
+```json
+{
+    "source": "AlienVault OTX",
+    "ip": "209.99.185.223",
+    "added_at": "2026-05-13T02:38:48.420283"
+}
+```
+Output:
+```json
+{
+    "source": "AlienVault OTX",
+    "ip": "209.99.185.223",
+    "added_at": "2026-05-13T02:38:48.420283",
+    "malicious_score": 9,
+    "suspicious_score": 2,
+    "country": "CH",
+    "asn": 402253,
+    "reputation": 0,
+    "risk_score": 6,
+    "severity": "high"
+}
+```
+The script processes indicators in batches, automatically tracks progress, handles API errors, and generates an enriched JSON threat intelligence feed suitable for SIEM integration and threat analysis.
