@@ -91,3 +91,4 @@ sudo systemctl restart logstash
 # http://192.168.1.10:5601
 # =========================================
 
+![ELK.png](/screenshots/ELK.png)
