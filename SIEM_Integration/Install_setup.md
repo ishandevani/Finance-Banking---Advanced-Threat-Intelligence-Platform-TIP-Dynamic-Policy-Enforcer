@@ -8,13 +8,13 @@ This project explains how to install and configure:
 * Logstash
 * Kibana (ELK Stack)
 
-on Ubuntu 22.04 / 24.04.
+with authentication enabled on Ubuntu 22.04 / 24.04.
 
 ---
 
 # Architecture
 
-```text
+```text id="8r8r5w"
 Logstash
     ↓
 Elasticsearch
@@ -36,7 +36,7 @@ Kibana Dashboard
 
 # Step 1: Update System
 
-```bash
+```bash id="s19clq"
 sudo apt update && sudo apt upgrade -y
 ```
 
@@ -44,7 +44,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Step 2: Install Required Packages
 
-```bash
+```bash id="vjlwmr"
 sudo apt install apt-transport-https wget curl gnupg -y
 ```
 
@@ -52,7 +52,7 @@ sudo apt install apt-transport-https wget curl gnupg -y
 
 # Step 3: Import Elastic GPG Key
 
-```bash
+```bash id="t97cws"
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | \
 sudo gpg --dearmor -o /usr/share/keyrings/elastic-keyring.gpg
 ```
@@ -61,7 +61,7 @@ sudo gpg --dearmor -o /usr/share/keyrings/elastic-keyring.gpg
 
 # Step 4: Add Elastic Repository
 
-```bash
+```bash id="gwc6rx"
 echo "deb [signed-by=/usr/share/keyrings/elastic-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | \
 sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 ```
@@ -70,7 +70,7 @@ sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 
 # Step 5: Update Packages
 
-```bash
+```bash id="xjlwm7"
 sudo apt update
 ```
 
@@ -78,7 +78,7 @@ sudo apt update
 
 # Step 6: Install Elasticsearch
 
-```bash
+```bash id="pbjlwm"
 sudo apt install elasticsearch -y
 ```
 
@@ -88,24 +88,26 @@ sudo apt install elasticsearch -y
 
 Edit configuration:
 
-```bash
+```bash id="q1m2ce"
 sudo nano /etc/elasticsearch/elasticsearch.yml
 ```
 
 Add:
 
-```yaml
+```yaml id="i2zw1w"
 network.host: 0.0.0.0
 http.port: 9200
 discovery.type: single-node
-xpack.security.enabled: false
+
+xpack.security.enabled: true
+xpack.security.enrollment.enabled: true
 ```
 
 ---
 
 # Step 8: Start Elasticsearch
 
-```bash
+```bash id="i6g4xw"
 sudo systemctl daemon-reload
 sudo systemctl enable elasticsearch
 sudo systemctl start elasticsearch
@@ -113,103 +115,158 @@ sudo systemctl start elasticsearch
 
 Check status:
 
-```bash
+```bash id="llyf9e"
 sudo systemctl status elasticsearch
 ```
 
 ---
 
-# Step 9: Verify Elasticsearch
+# Step 9: Reset Elasticsearch Password
 
-```bash
-curl localhost:9200
+Generate password for elastic user:
+
+```bash id="wsjlwm"
+/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
 ```
+
+Example output:
+
+```text id="rmjlwm"
+New value: Abcd@1234
+```
+
+Save this password.
 
 ---
 
-# Step 10: Install Kibana
+# Step 10: Verify Elasticsearch
 
-```bash
+```bash id="jlwm85"
+curl -u elastic localhost:9200
+```
+
+Enter password when prompted.
+
+---
+
+# Step 11: Install Kibana
+
+```bash id="jlwm56"
 sudo apt install kibana -y
 ```
 
 ---
 
-# Step 11: Configure Kibana
+# Step 12: Configure Kibana
 
 Edit configuration:
 
-```bash
+```bash id="jlwm11"
 sudo nano /etc/kibana/kibana.yml
 ```
 
 Add:
 
-```yaml
+```yaml id="jlwm33"
 server.port: 5601
 server.host: "0.0.0.0"
+
 elasticsearch.hosts: ["http://localhost:9200"]
+
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "YOUR_PASSWORD"
 ```
 
 ---
 
-# Step 12: Start Kibana
+# Step 13: Generate Kibana Enrollment Token
 
-```bash
+Run:
+
+```bash id="jlwm66"
+/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+```
+
+Copy generated token.
+
+---
+
+# Step 14: Start Kibana
+
+```bash id="jlwm22"
 sudo systemctl enable kibana
 sudo systemctl start kibana
 ```
 
 Check status:
 
-```bash
+```bash id="jlwm44"
 sudo systemctl status kibana
 ```
 
 ---
 
-# Step 13: Access Kibana
+# Step 15: Access Kibana
 
 Open browser:
 
-```text
+```text id="jlwm99"
 http://YOUR-IP:5601
 ```
 
-Example:
+You will see the Kibana login page.
 
-```text
-http://192.168.1.10:5601
-```
+Login using:
+
+| Username | Password                |
+| -------- | ----------------------- |
+| elastic  | Your generated password |
 
 ---
 
-# Step 14: Install Logstash
+# Step 16: Install Logstash
 
-```bash
+```bash id="jlwm77"
 sudo apt install logstash -y
 ```
 
 ---
 
-# Step 15: Verify Logstash
+# Step 17: Configure Logstash Authentication
 
-```bash
-/usr/share/logstash/bin/logstash --version
+Create configuration file:
+
+```bash id="jlwm55"
+sudo nano /etc/logstash/conf.d/elastic.conf
+```
+
+Add:
+
+```ruby id="jlwm88"
+output {
+  elasticsearch {
+    hosts => ["http://localhost:9200"]
+
+    user => "elastic"
+    password => "YOUR_PASSWORD"
+
+    index => "logs"
+  }
+}
 ```
 
 ---
 
-# Step 16: Start Logstash
+# Step 18: Start Logstash
 
-```bash
+```bash id="jlwm12"
 sudo systemctl enable logstash
 sudo systemctl start logstash
 ```
 
 Check status:
 
-```bash
+```bash id="jlwm14"
 sudo systemctl status logstash
 ```
 
@@ -219,7 +276,7 @@ sudo systemctl status logstash
 
 ## Restart Services
 
-```bash
+```bash id="jlwm15"
 sudo systemctl restart elasticsearch
 sudo systemctl restart kibana
 sudo systemctl restart logstash
@@ -229,7 +286,7 @@ sudo systemctl restart logstash
 
 ## Check Service Status
 
-```bash
+```bash id="jlwm16"
 sudo systemctl status elasticsearch
 sudo systemctl status kibana
 sudo systemctl status logstash
@@ -239,8 +296,8 @@ sudo systemctl status logstash
 
 ## View Elasticsearch Indices
 
-```bash
-curl localhost:9200/_cat/indices?v
+```bash id="jlwm17"
+curl -u elastic localhost:9200/_cat/indices?v
 ```
 
 ---
@@ -249,10 +306,10 @@ curl localhost:9200/_cat/indices?v
 
 Below is the successfully configured ELK Stack dashboard screenshot.
 
-![ELK.png](/screenshots/ELK.png)
+![ELK Dashboard](/screenshots/ELK.png)
 
 ---
 
 # Conclusion
 
-This setup creates a complete ELK Stack environment for log monitoring, analytics, and visualization using Elasticsearch, Logstash, and Kibana.
+This setup creates a complete ELK Stack environment with authentication enabled for secure log monitoring, analytics, and visualization using Elasticsearch, Logstash, and Kibana.
