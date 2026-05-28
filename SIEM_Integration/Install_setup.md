@@ -1,94 +1,258 @@
-# =========================================
-# ELK Stack Installation & Setup Script
-# Ubuntu 22.04 / 24.04
-# =========================================
+# ELK Stack Installation & Setup
 
-# Update System
+## Overview
+
+This project explains how to install and configure:
+
+* Elasticsearch
+* Logstash
+* Kibana (ELK Stack)
+
+on Ubuntu 22.04 / 24.04.
+
+---
+
+# Architecture
+
+```text
+Logstash
+    ↓
+Elasticsearch
+    ↓
+Kibana Dashboard
+```
+
+---
+
+# System Requirements
+
+| Component | Recommended          |
+| --------- | -------------------- |
+| RAM       | 4 GB Minimum         |
+| CPU       | 2 Core               |
+| OS        | Ubuntu 22.04 / 24.04 |
+
+---
+
+# Step 1: Update System
+
+```bash
 sudo apt update && sudo apt upgrade -y
+```
 
-# Install Required Packages
+---
+
+# Step 2: Install Required Packages
+
+```bash
 sudo apt install apt-transport-https wget curl gnupg -y
+```
 
-# Import Elastic GPG Key
+---
+
+# Step 3: Import Elastic GPG Key
+
+```bash
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | \
 sudo gpg --dearmor -o /usr/share/keyrings/elastic-keyring.gpg
+```
 
-# Add Elastic Repository
+---
+
+# Step 4: Add Elastic Repository
+
+```bash
 echo "deb [signed-by=/usr/share/keyrings/elastic-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | \
 sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+```
 
-# Update Repository
+---
+
+# Step 5: Update Packages
+
+```bash
 sudo apt update
+```
 
-# Install Elasticsearch
+---
+
+# Step 6: Install Elasticsearch
+
+```bash
 sudo apt install elasticsearch -y
+```
 
-# Configure Elasticsearch
-sudo bash -c 'cat > /etc/elasticsearch/elasticsearch.yml <<EOF
+---
+
+# Step 7: Configure Elasticsearch
+
+Edit configuration:
+
+```bash
+sudo nano /etc/elasticsearch/elasticsearch.yml
+```
+
+Add:
+
+```yaml
 network.host: 0.0.0.0
 http.port: 9200
 discovery.type: single-node
 xpack.security.enabled: false
-EOF'
+```
 
-# Enable & Start Elasticsearch
+---
+
+# Step 8: Start Elasticsearch
+
+```bash
 sudo systemctl daemon-reload
 sudo systemctl enable elasticsearch
 sudo systemctl start elasticsearch
+```
 
-# Check Elasticsearch Status
-sudo systemctl status elasticsearch --no-pager
+Check status:
 
-# Test Elasticsearch
+```bash
+sudo systemctl status elasticsearch
+```
+
+---
+
+# Step 9: Verify Elasticsearch
+
+```bash
 curl localhost:9200
+```
 
-# Install Kibana
+---
+
+# Step 10: Install Kibana
+
+```bash
 sudo apt install kibana -y
+```
 
-# Configure Kibana
-sudo bash -c 'cat > /etc/kibana/kibana.yml <<EOF
+---
+
+# Step 11: Configure Kibana
+
+Edit configuration:
+
+```bash
+sudo nano /etc/kibana/kibana.yml
+```
+
+Add:
+
+```yaml
 server.port: 5601
 server.host: "0.0.0.0"
 elasticsearch.hosts: ["http://localhost:9200"]
-EOF'
+```
 
-# Enable & Start Kibana
+---
+
+# Step 12: Start Kibana
+
+```bash
 sudo systemctl enable kibana
 sudo systemctl start kibana
+```
 
-# Check Kibana Status
-sudo systemctl status kibana --no-pager
+Check status:
 
-# Install Logstash
+```bash
+sudo systemctl status kibana
+```
+
+---
+
+# Step 13: Access Kibana
+
+Open browser:
+
+```text
+http://YOUR-IP:5601
+```
+
+Example:
+
+```text
+http://192.168.1.10:5601
+```
+
+---
+
+# Step 14: Install Logstash
+
+```bash
 sudo apt install logstash -y
+```
 
-# Check Logstash Version
+---
+
+# Step 15: Verify Logstash
+
+```bash
 /usr/share/logstash/bin/logstash --version
+```
 
-# Enable & Start Logstash
+---
+
+# Step 16: Start Logstash
+
+```bash
 sudo systemctl enable logstash
 sudo systemctl start logstash
+```
 
-# Check Logstash Status
-sudo systemctl status logstash --no-pager
+Check status:
 
-# Allow Firewall Ports
-sudo ufw allow 9200
-sudo ufw allow 5601
+```bash
+sudo systemctl status logstash
+```
 
-# Restart All Services
+---
+
+# Useful Commands
+
+## Restart Services
+
+```bash
 sudo systemctl restart elasticsearch
 sudo systemctl restart kibana
 sudo systemctl restart logstash
+```
 
-# =========================================
-# Access Kibana
-# =========================================
-# Open Browser:
-# http://YOUR-IP:5601
-#
-# Example:
-# http://192.168.1.10:5601
-# =========================================
+---
+
+## Check Service Status
+
+```bash
+sudo systemctl status elasticsearch
+sudo systemctl status kibana
+sudo systemctl status logstash
+```
+
+---
+
+## View Elasticsearch Indices
+
+```bash
+curl localhost:9200/_cat/indices?v
+```
+
+---
+
+# Kibana Dashboard
+
+Below is the successfully configured ELK Stack dashboard screenshot.
 
 ![ELK.png](/screenshots/ELK.png)
+
+---
+
+# Conclusion
+
+This setup creates a complete ELK Stack environment for log monitoring, analytics, and visualization using Elasticsearch, Logstash, and Kibana.
