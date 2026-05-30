@@ -298,6 +298,3 @@ tail -f policy_enforcer.log
 * Elasticsearch
 * Kibana
 * Threat Intelligence Platform (TIP)
-
-```
-```
