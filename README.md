@@ -116,3 +116,36 @@ Output:
 ```
 The script processes indicators in batches, automatically tracks progress, handles API errors, and generates an enriched JSON threat intelligence feed suitable for SIEM integration and threat analysis.
 
+## Week 4: Alerting, Testing, and Final Reporting
+
+During Week 4, the project focused on validation, visualization, and incident response management. A rollback mechanism was implemented to allow SOC analysts to reverse automated firewall rules in case of false-positive detections. The system updates MongoDB records and removes the corresponding UFW firewall rule when an IP is unblocked.
+
+Key activities completed:
+
+* Implemented `rollback.py` for automated firewall rule reversal.
+* Added MongoDB status tracking for blocked and unblocked IPs.
+* Tested Dynamic Security Policy Enforcer and rollback workflows.
+* Verified automated IP blocking and unblocking functionality.
+* Enhanced Kibana dashboards to visualize threat intelligence and blocked indicators.
+* Documented testing procedures, project architecture, and deployment steps.
+* Finalized GitHub repository structure and project documentation.
+
+### Outcome
+
+The Threat Intelligence Platform now supports the complete threat lifecycle:
+
+```text
+Threat Detection
+        ↓
+Risk Scoring
+        ↓
+Automatic IP Blocking
+        ↓
+SOC Analyst Review
+        ↓
+Rollback (False Positive Handling)
+        ↓
+Dashboard Visualization & Reporting
+```
+
+This completes the implementation of an automated Threat Intelligence Platform with dynamic security policy enforcement and incident response capabilities.
