@@ -74,6 +74,8 @@ Tailscale is a lightweight networking tool that creates a secure private network
 
 we developed the Dynamic Security Policy Enforcer module. A Python script was created to assign risk scores to collected threat indicators based on their source and severity. The system continuously monitors high-risk indicators stored in the MongoDB database and automatically blocks malicious IP addresses using Linux iptables firewall rules. This automation helps proactively protect organizational systems by dynamically updating security policies and preventing connections from malicious infrastructure in real time.
 
+we created policy_enforcer.py script for Dynamic Policy Enforcement in Enforcer folder.
+
  ## Threat Intelligence Enrichment
 
 The `virustotal_enrich.py` script in the `processing/` folder automates the enrichment of threat intelligence data using the VirusTotal API.
@@ -113,3 +115,4 @@ Output:
 }
 ```
 The script processes indicators in batches, automatically tracks progress, handles API errors, and generates an enriched JSON threat intelligence feed suitable for SIEM integration and threat analysis.
+
