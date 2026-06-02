@@ -31,7 +31,7 @@ MONGO_DB         = "Threat"
 
 ES_HOST          = "http://localhost:9200"        # Change to Tailscale IP if remote
 ES_USER          = "elastic"
-ES_PASS          = "4HopMB+kaq2f1m*u7Qa0"
+ES_PASS          = "Enter password"
 
 INDEX_OSINT      = "threat-osint"
 INDEX_BLOCKED    = "threat-blocked-ips"
