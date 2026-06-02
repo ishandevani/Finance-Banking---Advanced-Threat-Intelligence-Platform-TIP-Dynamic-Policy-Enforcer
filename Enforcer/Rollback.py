@@ -1,5 +1,3 @@
-# sudo python3 Rollback.py <enter IP>
-
 import sys
 import subprocess
 from datetime import datetime
@@ -11,14 +9,14 @@ db = client["Threat"]
 
 blocked_collection = db["blocked_ips"]
 
-# Check IP argument
+# Check command-line argument
 if len(sys.argv) != 2:
     print("Usage: python3 rollback.py <IP_ADDRESS>")
     sys.exit(1)
 
 ip = sys.argv[1]
 
-# Verify IP exists in blocked collection
+# Verify IP exists and is currently blocked
 record = blocked_collection.find_one({
     "ip": ip,
     "status": "blocked"
@@ -29,15 +27,24 @@ if not record:
     sys.exit(1)
 
 try:
-    # Remove UFW rule
+    # Remove iptables rule
     subprocess.run(
-        ["sudo", "ufw", "delete", "deny", "from", ip],
+        [
+            "sudo",
+            "iptables",
+            "-D",
+            "INPUT",
+            "-s",
+            ip,
+            "-j",
+            "DROP"
+        ],
         check=True
     )
 
     print(f"[+] Firewall rule removed for {ip}")
 
-    # Update MongoDB record
+    # Update MongoDB status
     blocked_collection.update_one(
         {"ip": ip},
         {
@@ -52,6 +59,7 @@ try:
     print(f"[+] IP {ip} successfully unblocked")
 
 except subprocess.CalledProcessError:
-    print(f"[-] Failed to remove firewall rule")
+    print(f"[-] Firewall rule not found or already removed")
+
 except Exception as e:
     print(f"[-] Error: {e}")
