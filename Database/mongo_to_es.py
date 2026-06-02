@@ -1,7 +1,8 @@
 """
 mongo_to_es.py
 --------------
-Syncs MongoDB (Threat DB) → Elasticsearch every 15 minutes.
+Syncs MongoDB (Threat DB) → Elasticsearch.
+Run once per execution — schedule via crontab.
 
 Collections handled:
   1. osint_threat  → index: threat-osint
@@ -11,10 +12,11 @@ Logic:
   - Deduplicates by IP or domain (uses deterministic ES _id)
   - Detects updates via updated_at / blocked_at timestamps
   - Detects deletes: removes ES docs no longer in MongoDB
-  - Runs forever, syncs every 15 minutes
+
+Crontab (every 5 min):
+  */5 * * * * /usr/bin/python3 /path/to/mongo_to_es.py >> /var/log/mongo_to_es.log 2>&1
 """
 
-import time
 import hashlib
 import logging
 from datetime import datetime, timezone
@@ -29,12 +31,10 @@ MONGO_DB         = "Threat"
 
 ES_HOST          = "http://localhost:9200"        # Change to Tailscale IP if remote
 ES_USER          = "elastic"
-ES_PASS          = "Enter your password"
+ES_PASS          = "4HopMB+kaq2f1m*u7Qa0"
 
 INDEX_OSINT      = "threat-osint"
 INDEX_BLOCKED    = "threat-blocked-ips"
-
-SYNC_INTERVAL    = 15 * 60  # 15 minutes in seconds
 
 # ─── LOGGING ──────────────────────────────────────────────────────────────────
 
@@ -357,14 +357,10 @@ def run_sync():
             pass
 
 def main():
-    log.info("mongo_to_es.py started — syncing every 15 minutes")
+    log.info("mongo_to_es.py started")
     log.info(f"MongoDB : {MONGO_URI}")
     log.info(f"ES Host : {ES_HOST}")
-
-    while True:
-        run_sync()
-        log.info(f"Next sync in {SYNC_INTERVAL // 60} minutes...")
-        time.sleep(SYNC_INTERVAL)
+    run_sync()
 
 if __name__ == "__main__":
     main()
