@@ -144,3 +144,14 @@ Dashboard Visualization & Reporting
 ```
 
 This completes the implementation of an automated Threat Intelligence Platform with dynamic security policy enforcement and incident response capabilities.
+
+## Kibana Dashboard
+
+### Threat Overview Dashboard
+![Threat Overview](/screenshots/Threat%20Overview.pdf)
+
+### Blocked Threate Dashboard
+![Blocked Threats](/screenshots/Blocked_Threats.pdf)
+
+### Risk Analysis Dashboard
+![Risk Analysis](/screenshots/risk_analysis.pdf)
