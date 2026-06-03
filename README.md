@@ -147,11 +147,4 @@ This completes the implementation of an automated Threat Intelligence Platform w
 
 ## Kibana Dashboard
 
-### Threat Overview Dashboard
-![Threat Overview](screenshots/Threat Overview.pdf)
-
-### Blocked Threate Dashboard
-![Blocked Threats](/screenshots/Blocked_Threats.pdf)
-
-### Risk Analysis Dashboard
-![Risk Analysis](/screenshots/risk_analysis.pdf)
+We have added Dashboard pdf in screenshot folder name with Threat Overview, Blocked Threats and Risk Analysis Dashboard.
