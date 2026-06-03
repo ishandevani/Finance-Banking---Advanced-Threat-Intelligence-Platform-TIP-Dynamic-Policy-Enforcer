@@ -148,7 +148,7 @@ This completes the implementation of an automated Threat Intelligence Platform w
 ## Kibana Dashboard
 
 ### Threat Overview Dashboard
-![Threat Overview](/screenshots/Threat%20Overview.pdf)
+![Threat Overview](screenshots/Threat Overview.pdf)
 
 ### Blocked Threate Dashboard
 ![Blocked Threats](/screenshots/Blocked_Threats.pdf)
