@@ -17,11 +17,9 @@
 **MongoDB** stores every threat indicator collected from OSINT feeds:
 ```json
 {
-  "ip": "185.220.101.45",
-  "type": "malware",
-  "source": "AlienVault",
-  "risk_score": 8,
-  "last_seen": "2025-05-10"
+  "source": "AlienVault OTX",
+  "ip": "45.142.36.76",
+  "added_at": "2026-05-08T05:10:59.330885"
 }
 ```
 
