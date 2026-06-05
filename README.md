@@ -51,19 +51,26 @@ I have created a dedicated folder named SIEM Integration in this repository. Thi
 - MongoDB setup and configuration
 - `mongo_to_es.py` — pipes threat data from MongoDB into Elasticsearch for a searchable, visual threat landscape via Kibana
 
-### Risk Score Design (Planning)
+## Risk Score Calculation
 
-This week we defined how risk score will be calculated.
+The risk score is calculated using VirusTotal threat intelligence data.
 
-Risk score is on a scale of 1–10 based on three factors:
+Formula:
 
-| Factor | Logic | Max Points |
-|---|---|---|
-| Source count | How many feeds reported this IP | 3 |
-| Threat type | Ransomware=4, Botnet/Malware=3, Phishing=2, Scanner=1 | 4 |
-| Recency | Last seen ≤7 days=3, ≤30 days=2, older=1 | 3 |
+Risk Score = (Malicious Score × 0.6) + (Suspicious Score × 0.3)
 
-Risk score implementation will be done in Week 3 inside the enforcement daemon.
+If the reputation is negative, 1 additional point is added to the score. The maximum risk score is capped at 10.
+
+### Severity Levels
+
+| Risk Score | Severity |
+|------------|----------|
+| 0 - 2.9 | Low |
+| 3 - 5.9 | Medium |
+| 6 - 7.9 | High |
+| 8 - 10 | Critical |
+
+This scoring system helps prioritize IPs and domains based on their potential threat level.
 
 ## Week 3: Dynamic Policy Enforcement Engine
 
